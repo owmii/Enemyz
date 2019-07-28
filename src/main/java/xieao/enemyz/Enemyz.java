@@ -63,7 +63,7 @@ public class Enemyz {
 
         public Config(ForgeConfigSpec.Builder builder) {
             this.yOffset = builder.comment("Move the icon up and down.")
-                    .defineInRange("icon_y_offset", 0.0D, -1.0D, 1.5D);
+                    .defineInRange("icon_y_offset", 0.0D, -1.0D, 1.0D);
         }
     }
 
