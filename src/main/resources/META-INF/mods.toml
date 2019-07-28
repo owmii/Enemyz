@@ -1,0 +1,11 @@
+modLoader="javafml" 
+loaderVersion="[27,)"
+
+[[mods]]
+modId="enemyz"
+version="${file.jarVersion}"
+displayName="Enemyz"
+authors="xieao"
+description='''
+Reveal enemies who targeting you.
+'''
