@@ -59,9 +59,12 @@ public class Enemyz {
     }
 
     public static class Config {
+        public final ForgeConfigSpec.DoubleValue iconSize;
         public final ForgeConfigSpec.DoubleValue yOffset;
 
         public Config(ForgeConfigSpec.Builder builder) {
+            this.iconSize = builder.comment("Change the icon size.")
+                    .defineInRange("icon_size", 1.0D, 0.0D, 1.0D);
             this.yOffset = builder.comment("Move the icon up and down.")
                     .defineInRange("icon_y_offset", 0.0D, -1.0D, 1.0D);
         }
