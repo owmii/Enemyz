@@ -1,0 +1,16 @@
+[
+{
+  "modid": "enemyz",
+  "name": "Enemyz",
+  "description": "Shows enemies who targeting you.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["xieao"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
