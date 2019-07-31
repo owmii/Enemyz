@@ -1,2 +1,2 @@
-# EnemyIndicator
-EnemyIndicator Minecraft Mod.
+# Enemyz
+Enemyz Minecraft Mod.
