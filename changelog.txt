@@ -1,7 +1,14 @@
 0.0.1
 - First release.
+
 0.1.0
-- Added icon size to the config.
+- Added icon size to cofig.
+
+0.1.1
+- Fix config for icon size not functioning.
+
+0.1.2
+- Added config option to show icon through blocks while sneaking.
 
 
 

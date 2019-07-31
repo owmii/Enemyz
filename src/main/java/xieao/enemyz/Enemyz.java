@@ -61,12 +61,15 @@ public class Enemyz {
     public static class Config {
         public final ForgeConfigSpec.DoubleValue iconSize;
         public final ForgeConfigSpec.DoubleValue yOffset;
+        public final ForgeConfigSpec.BooleanValue sneaking;
 
         public Config(ForgeConfigSpec.Builder builder) {
             this.iconSize = builder.comment("Change the icon size.")
                     .defineInRange("icon_size", 1.0D, 0.0D, 1.0D);
             this.yOffset = builder.comment("Move the icon up and down.")
                     .defineInRange("icon_y_offset", 0.0D, -1.0D, 1.0D);
+            this.sneaking = builder.comment("Show icon through blocks while sneaking.")
+                    .define("sneaking", true);
         }
     }
 
@@ -147,12 +150,12 @@ public class Enemyz {
                 GlStateManager.enableBlend();
                 GlStateManager.depthMask(false);
                 boolean isSneaking = player.isSneaking();
-                if (isSneaking) {
+                if (CONFIG.sneaking.get() && isSneaking) {
                     GlStateManager.disableDepthTest();
                 }
                 GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
                 GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, 15728880 >> 16 & '\uffff', 15728880 & '\uffff');
-                GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+                GlStateManager.scalef((float) (0.5F * CONFIG.iconSize.get()), (float) (0.5F * CONFIG.iconSize.get()), (float) (0.5F * CONFIG.iconSize.get()));
                 GlStateManager.color4f(1.0F, 0.0F, 0.0F, 1.0F);
                 Tessellator tessellator = Tessellator.getInstance();
                 BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -163,7 +166,7 @@ public class Enemyz {
                 bufferbuilder.pos(0.5D, 0.75D, 0.0D).tex(1.0D, 0.0D).normal(0.0F, 1.0F, 0.0F).endVertex();
                 bufferbuilder.pos(-0.5D, 0.75D, 0.0D).tex(0.0D, 0.0D).normal(0.0F, 1.0F, 0.0F).endVertex();
                 tessellator.draw();
-                if (isSneaking) {
+                if (CONFIG.sneaking.get() && isSneaking) {
                     GlStateManager.enableDepthTest();
                 }
                 GlStateManager.depthMask(true);

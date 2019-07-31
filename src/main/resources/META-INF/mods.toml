@@ -7,5 +7,5 @@ version="${file.jarVersion}"
 displayName="Enemyz"
 authors="xieao"
 description='''
-Reveal enemies who targeting you.
+Shows enemies who targeting you.
 '''
