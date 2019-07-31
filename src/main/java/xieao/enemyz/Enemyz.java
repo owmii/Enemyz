@@ -33,11 +33,10 @@ import java.io.File;
 import java.util.Objects;
 import java.util.UUID;
 
-@Mod(modid = Enemyz.MOD_ID, name = Enemyz.NAME, version = Enemyz.VERSION)
+@Mod(modid = Enemyz.MOD_ID, name = "Enemyz", version = Enemyz.VERSION)
 public class Enemyz {
     public static final String MOD_ID = "enemyz";
-    public static final String NAME = "Enemyz";
-    public static final String VERSION = "0.0.1";
+    public static final String VERSION = "0.1.2";
 
     public static final String TAG_PLAYER_UUID = "PlayerTargetId";
     private static final SimpleNetworkWrapper NET = new SimpleNetworkWrapper(MOD_ID);
@@ -53,6 +52,7 @@ public class Enemyz {
         private static Configuration config;
         public static float iconSize;
         public static float yOffset;
+        public static boolean sneaking;
 
 
         public static void init(FMLPreInitializationEvent event) {
@@ -65,6 +65,7 @@ public class Enemyz {
         private static void setConfig() {
             iconSize = (float) config.get("enemyz", "icon_size", 1.0D, "Change the icon size.", 0.0D, 1.0D).getDouble();
             yOffset = (float) config.get("enemyz", "icon_y_offset", 0.0D, "Move the icon up and down.", -1.0D, 1.0D).getDouble();
+            sneaking = config.get("enemyz", "sneaking", true, "Show icon through blocks while sneaking.").getBoolean();
             if (config.hasChanged())
                 config.save();
         }
@@ -163,7 +164,7 @@ public class Enemyz {
                 GlStateManager.enableBlend();
                 GlStateManager.depthMask(false);
                 boolean isSneaking = player.isSneaking();
-                if (isSneaking) {
+                if (Config.sneaking && isSneaking) {
                     GlStateManager.disableDepth();
                 }
                 GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
@@ -179,7 +180,7 @@ public class Enemyz {
                 bufferbuilder.pos(0.5D, 0.75D, 0.0D).tex(1.0D, 0.0D).normal(0.0F, 1.0F, 0.0F).endVertex();
                 bufferbuilder.pos(-0.5D, 0.75D, 0.0D).tex(0.0D, 0.0D).normal(0.0F, 1.0F, 0.0F).endVertex();
                 tessellator.draw();
-                if (isSneaking) {
+                if (Config.sneaking && isSneaking) {
                     GlStateManager.enableDepth();
                 }
                 GlStateManager.depthMask(true);
