@@ -21,6 +21,7 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -145,7 +146,8 @@ public class Enemyz {
             if (player.getUniqueID().equals(uuid) && entity.isAlive()) {
                 GlStateManager.pushMatrix();
                 Minecraft.getInstance().getTextureManager().bindTexture(LOCATION);
-                GlStateManager.translated(event.getX(), entity.getHeight() + 0.5D + event.getY() + CONFIG.yOffset.get(), event.getZ());
+                float neatOffset = ModList.get().isLoaded("neat") ? 0.35F : 0.0F;
+                GlStateManager.translated(event.getX(), entity.getHeight() + 0.5D + event.getY() + CONFIG.yOffset.get() + neatOffset, event.getZ());
                 GlStateManager.enableRescaleNormal();
                 GlStateManager.enableBlend();
                 GlStateManager.depthMask(false);
