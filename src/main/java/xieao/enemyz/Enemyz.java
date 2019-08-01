@@ -19,6 +19,7 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -36,7 +37,7 @@ import java.util.UUID;
 @Mod(modid = Enemyz.MOD_ID, name = "Enemyz", version = Enemyz.VERSION)
 public class Enemyz {
     public static final String MOD_ID = "enemyz";
-    public static final String VERSION = "0.1.2";
+    public static final String VERSION = "0.1.3";
 
     public static final String TAG_PLAYER_UUID = "PlayerTargetId";
     private static final SimpleNetworkWrapper NET = new SimpleNetworkWrapper(MOD_ID);
@@ -159,7 +160,8 @@ public class Enemyz {
             if (player.getUniqueID().equals(uuid) && !entity.isDead) {
                 GlStateManager.pushMatrix();
                 Minecraft.getMinecraft().getTextureManager().bindTexture(LOCATION);
-                GlStateManager.translate(event.getX(), entity.height + 0.5D + event.getY() + Config.yOffset, event.getZ());
+                float neatOffset = Loader.isModLoaded("neat") ? 0.35F : 0.0F;
+                GlStateManager.translate(event.getX(), entity.height + 0.5D + event.getY() + Config.yOffset + neatOffset, event.getZ());
                 GlStateManager.enableRescaleNormal();
                 GlStateManager.enableBlend();
                 GlStateManager.depthMask(false);
