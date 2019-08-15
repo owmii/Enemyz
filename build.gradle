@@ -22,26 +22,6 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: lib.mappings_channel, version: lib.mappings_version
-    runs {
-        //noinspection GroovyAssignabilityCheck
-        client = {
-            workingDirectory project.file('run').canonicalPath
-            mods {
-                enemyz {
-                    source sourceSets.main
-                }
-            }
-        }
-        //noinspection GroovyAssignabilityCheck
-        server = {
-            workingDirectory project.file('run').canonicalPath
-            mods {
-                enemyz {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
 }
 
 dependencies {
