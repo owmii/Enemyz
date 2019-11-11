@@ -12,30 +12,47 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 
-final Project lib = project(':Lollipop')
-
-version = lib.minecraft_version + '-' + mod_version
-group = lib.mod_group
+version = minecraft_version + '-' + mod_version
+group = mod_group
 archivesBaseName = mod_name
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: lib.mappings_channel, version: lib.mappings_version
+    mappings channel: mappings_channel, version: mappings_version
+    runs {
+        client {
+            workingDirectory project.file('run')
+            mods {
+                Enemyz {
+                    source project.sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file('run')
+
+            mods {
+                Enemyz {
+                    source project.sourceSets.main
+                }
+            }
+        }
+    }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:' + lib.minecraft_version + '-' + lib.forge_version
+    minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
 }
 
 jar {
     manifest {
         attributes(["Specification-Title"     : mod_name,
-                    "Specification-Vendor"    : lib.mod_group,
+                    "Specification-Vendor"    : mod_group,
                     "Specification-Version"   : mod_version,
                     "Implementation-Title"    : project.name,
                     "Implementation-Version"  : mod_version,
-                    "Implementation-Vendor"   : lib.mod_group,
+                    "Implementation-Vendor"   : mod_group,
                     "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
     }
 }

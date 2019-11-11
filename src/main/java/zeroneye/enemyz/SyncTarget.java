@@ -1,4 +1,4 @@
-package xieao.enemyz;
+package zeroneye.enemyz;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -31,7 +31,7 @@ public class SyncTarget {
         ctx.get().enqueueWork(() -> {
             Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
             if (entity instanceof MobEntity) {
-                entity.getEntityData().putUniqueId(Handler.TAG_PLAYER_UUID, msg.uuid);
+                entity.getPersistentData().putUniqueId(Enemyz.Handler.TAG_PLAYER_UUID, msg.uuid);
             }
         });
         ctx.get().setPacketHandled(true);

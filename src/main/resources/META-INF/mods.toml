@@ -1,5 +1,5 @@
 modLoader="javafml" 
-loaderVersion="[27,)"
+loaderVersion="[28,)"
 
 [[mods]]
 modId="enemyz"
@@ -9,3 +9,10 @@ authors="xieao"
 description='''
 Shows enemies who targeting you.
 '''
+
+[[dependencies.enemyz]]
+    modId="forge"
+    mandatory=true
+    versionRange="[0.2.80,)"
+    ordering="NONE"
+    side="BOTH"
