@@ -1,4 +1,4 @@
 @NonnullDefault
-package zeroneye.enemyz;
+package owmii.enemyz;
 
 import org.lwjgl.system.NonnullDefault;

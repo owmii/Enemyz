@@ -1,4 +1,4 @@
-package zeroneye.enemyz;
+package owmii.enemyz;
 
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,20 +22,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import owmii.enemyz.client.KeyHandler;
 
 import java.util.UUID;
 
@@ -50,6 +48,7 @@ public class Enemyz {
     public Enemyz() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CONFIG_SPEC);
     }
 
@@ -63,7 +62,10 @@ public class Enemyz {
 
     void commonSetup(FMLCommonSetupEvent event) {
         NET.registerMessage(0, SyncTarget.class, SyncTarget::encode, SyncTarget::decode, SyncTarget::handle);
-        ClientRegistry.registerKeyBinding(Handler.KEY_TOGGLE);
+    }
+
+    void clientSetup(FMLClientSetupEvent event) {
+        KeyHandler.register();
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -79,10 +81,9 @@ public class Enemyz {
 
     @Mod.EventBusSubscriber
     public static class Handler {
-        public static final KeyBinding KEY_TOGGLE = new KeyBinding("enemyz.keybind.toggle", 293, "key.categories.enemyz");
         public static final String TAG_PLAYER_UUID = "PlayerTargetId";
         private static final UUID EMPTY_UUID = new UUID(0L, 0L);
-        private static boolean visible = true;
+        public static boolean visible = true;
 
         @SubscribeEvent
         public static void setAndSyncTarget(LivingEvent.LivingUpdateEvent event) {
@@ -112,16 +113,6 @@ public class Enemyz {
             }
         }
 
-        @SubscribeEvent
-        @OnlyIn(Dist.CLIENT)
-        public static void playerTick(TickEvent.PlayerTickEvent event) {
-            if (event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.START) {
-                PlayerEntity player = event.player;
-                if (KEY_TOGGLE.isPressed()) {
-                    visible = !visible;
-                }
-            }
-        }
 
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)

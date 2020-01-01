@@ -13,6 +13,6 @@ Shows enemies who targeting you.
 [[dependencies.enemyz]]
     modId="forge"
     mandatory=true
-    versionRange="[0.2.80,)"
+    versionRange="[28.1.107,)"
     ordering="NONE"
     side="BOTH"
