@@ -1,0 +1,27 @@
+modLoader="javafml" 
+loaderVersion="[30,)"
+issueTrackerURL="https://github.com/owmii/techneat/issues"
+
+[[mods]]
+modId="enemyz"
+version="${file.jarVersion}"
+displayName="Enemyz"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/techneat"
+authors="owmii"
+description='''
+A high tech mod that is neat.
+'''
+
+[[dependencies.enemyz]]
+    modId="lollipop"
+    mandatory=true
+    versionRange="[1.0.1,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.enemyz]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31.1.14,)"
+    ordering="NONE"
+    side="BOTH"
