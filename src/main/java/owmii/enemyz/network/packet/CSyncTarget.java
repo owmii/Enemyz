@@ -1,14 +1,13 @@
 package owmii.enemyz.network.packet;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 import owmii.enemyz.handler.EventHandler;
 import owmii.lib.Lollipop;
+import owmii.lib.client.util.Client;
 import owmii.lib.network.IPacket;
 
 import java.util.UUID;
@@ -42,13 +41,12 @@ public class CSyncTarget implements IPacket<CSyncTarget> {
 
     public void handle(CSyncTarget msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            World world = Minecraft.getInstance().world;
-            if (world != null) {
+            Client.world().ifPresent(world -> {
                 Entity entity = world.getEntityByID(msg.entityId);
                 if (entity instanceof MobEntity) {
                     entity.getPersistentData().putUniqueId(EventHandler.TAG_PLAYER_UUID, msg.uuid);
                 }
-            }
+            });
         });
         ctx.get().setPacketHandled(true);
     }

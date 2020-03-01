@@ -15,7 +15,7 @@ A high tech mod that is neat.
 [[dependencies.enemyz]]
     modId="lollipop"
     mandatory=true
-    versionRange="[1.0.1,)"
+    versionRange="[1.0.8,)"
     ordering="NONE"
     side="BOTH"
 
