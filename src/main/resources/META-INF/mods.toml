@@ -1,15 +1,15 @@
 modLoader="javafml" 
 loaderVersion="[30,)"
-issueTrackerURL="https://github.com/owmii/techneat/issues"
+issueTrackerURL="https://github.com/owmii/enemyz/issues"
 
 [[mods]]
 modId="enemyz"
 version="${file.jarVersion}"
 displayName="Enemyz"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/techneat"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/enemyz"
 authors="owmii"
 description='''
-A high tech mod that is neat.
+Enemyz.
 '''
 
 [[dependencies.enemyz]]
